@@ -71,17 +71,13 @@ router.get("/spotify/callback", function(req, res, next) {
               access_token: response.data.access_token,
               refresh_token: response.data.refresh_token
             }
-          })
+          });
         } else {
-          res.status(400).send(
+          res.status(400).send({
             data: {
               error: "invalid_token"
             }
-            "/#" +
-              querystring.stringify({
-                error: "invalid_token"
-              })
-          );
+          });
         }
       })
       .catch(err => {
