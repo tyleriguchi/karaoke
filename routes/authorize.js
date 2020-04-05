@@ -72,7 +72,7 @@ router.get("/spotify/callback", function(req, res, next) {
 
           // use the access token to access the Spotify Web API
           console.log("before user me");
-          axios.get("https://api.spotify.com/v1/me", options).then(response => {
+          axios.request(options).then(response => {
             console.log(response.data);
           });
 
