@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 
   corsOptions["host"] = "*";
 } else {
-  corsOptions["host"] = process.env.client_host;
+  corsOptions["host"] = `${process.env.client_host}`;
 }
 var indexRouter = require("./routes/index");
 var authorizationRouter = require("./routes/authorize");
