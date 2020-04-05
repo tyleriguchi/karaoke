@@ -3,9 +3,10 @@ const uuidV4 = uuid.v4;
 const express = require("express");
 const router = express.Router();
 const querystring = require("querystring");
+const request = require("request"); // "Request" library
 
-const spotify_redirect_uri =
-  "https://karoke.herokuapp.com/authorize/spotify/callback";
+const spotify_redirect_uri = `${process.env.host}/authorize/spotify/callback`;
+
 router.get("/spotify", function(req, res, next) {
   const scope = "user-read-private user-read-email";
   const state = uuidV4();
@@ -50,11 +51,10 @@ router.get("/spotify/callback", function(req, res, next) {
       headers: {
         Authorization:
           "Basic " +
-          new Buffer(
-            process.env.spotify_client_id +
-              ":" +
-              process.env.spotify_client_secret
-          ).toString("base64")
+          Buffer.from(
+            `${process.env.spotify_client_id}:${process.env.spotify_client_secret}`,
+            "base64"
+          )
       },
       json: true
     };
