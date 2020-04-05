@@ -13,6 +13,7 @@ if (process.env.NODE_ENV !== "production") {
   corsOptions["host"] = "*";
 } else {
   console.log("sdf", process.env.client_host);
+  console.log("sdf", typeof process.env.client_host);
   corsOptions["host"] = new String(process.env.client_host);
 }
 var indexRouter = require("./routes/index");
