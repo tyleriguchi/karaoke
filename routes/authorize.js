@@ -6,7 +6,7 @@ const querystring = require("querystring");
 
 router.get("/spotify", function(req, res, next) {
   const scope = "user-read-private user-read-email";
-  const state = uuidV4;
+  const state = uuidV4();
 
   res.cookie("spotify_uuid", state);
 
