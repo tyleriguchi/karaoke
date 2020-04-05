@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": "13.12.0"
+    "node": "12.16.1",
+    "yarn": "1.x"
   },
   "scripts": {
     "start": "node ./bin/www"
