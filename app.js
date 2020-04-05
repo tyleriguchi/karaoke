@@ -11,10 +11,10 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 
   corsOptions["host"] = "*";
-} else {
 }
 var indexRouter = require("./routes/index");
 var authorizationRouter = require("./routes/authorize");
+var currentSongRouter = require("./routes/current_song");
 
 var app = express();
 
@@ -28,5 +28,6 @@ app.use(cors(corsOptions));
 
 app.use("/", indexRouter);
 app.use("/authorize", authorizationRouter);
+app.use("/current_song", currentSongRouter);
 
 module.exports = app;

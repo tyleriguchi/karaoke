@@ -65,17 +65,6 @@ router.get("/spotify/callback", function(req, res, next) {
       .then(response => {
         console.log("response", response.status);
         if (response.status === 200) {
-          const options = {
-            url: "https://api.spotify.com/v1/me/player/currently-playing",
-            headers: { Authorization: `Bearer ${response.data.access_token}` }
-          };
-
-          // use the access token to access the Spotify Web API
-          console.log("before user me");
-          axios.request(options).then(response => {
-            console.log(response.data);
-          });
-
           // we can also pass the token to the browser to make requests from there
           res.redirect(
             "/#" +
