@@ -26,7 +26,7 @@ router.get("/spotify", function(req, res, next) {
 
 router.get(
   "/spotify/callback",
-  cors({ origin: "accounts.spotify.com" }),
+  cors({ origin: "https://accounts.spotify.com" }),
   function(req, res, next) {
     // your application requests refresh and access tokens
     // after checking the state parameter
