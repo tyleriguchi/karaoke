@@ -14,7 +14,7 @@ router.get("/spotify", function(req, res, next) {
     response_type: "code",
     client_id: process.env.spotify_client_id,
     scope: scope,
-    redirect_uri: "/authorize/spotify/callback",
+    redirect_uri: "https://karoke.herokuapp.com/authorize/spotify/callback",
     state: state
   });
 
