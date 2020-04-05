@@ -66,7 +66,7 @@ router.get("/spotify/callback", function(req, res, next) {
         console.log("response", response.status);
         if (response.status === 200) {
           const options = {
-            url: "https://api.spotify.com/v1/me",
+            url: "https://api.spotify.com/v1/me/player/currently-playing",
             headers: { Authorization: `Bearer ${response.data.access_token}` }
           };
 
