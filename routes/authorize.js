@@ -42,9 +42,8 @@ router.get("/spotify/callback", function(req, res, next) {
   } else {
     res.clearCookie("spotify_uuid");
     const authHeaderData = Buffer.from(
-      `${process.env.spotify_client_id}:${process.env.spotify_client_secret}`,
-      "base64"
-    );
+      `${process.env.spotify_client_id}:${process.env.spotify_client_secret}`
+    ).toString("base64");
     const requestOptions = {
       method: "post",
       url: "https://accounts.spotify.com/api/token",
