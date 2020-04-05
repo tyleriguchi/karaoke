@@ -1,11 +1,7 @@
-const uuid = require("uuid");
-const uuidV4 = uuid.v4;
 const express = require("express");
 const router = express.Router();
 const querystring = require("querystring");
 const axios = require("axios"); // "Request" library
-
-const spotify_redirect_uri = `${process.env.host}/authorize/spotify/callback`;
 
 router.get("/", function(req, res, next) {
   const options = {
@@ -22,3 +18,5 @@ router.get("/", function(req, res, next) {
     });
   });
 });
+
+module.exports = router;
