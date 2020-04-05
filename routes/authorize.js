@@ -59,7 +59,7 @@ router.get("/spotify/callback", function(req, res, next) {
       json: true
     };
 
-    axios.request.post(authOptions).then(res) {
+    axios.request.post(authOptions).then(res => {
       if (res.status === 200) {
         var access_token = body.access_token,
           refresh_token = body.refresh_token;
