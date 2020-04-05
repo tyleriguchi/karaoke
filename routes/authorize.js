@@ -66,15 +66,17 @@ router.get("/spotify/callback", function(req, res, next) {
         console.log("response", response.status);
         if (response.status === 200) {
           // we can also pass the token to the browser to make requests from there
-          res.redirect(
-            "/#" +
-              querystring.stringify({
-                access_token: response.data.access_token,
-                refresh_token: response.data.refresh_token
-              })
-          );
+          res.status(200).send({
+            data: {
+              access_token: response.data.access_token,
+              refresh_token: response.data.refresh_token
+            }
+          })
         } else {
-          res.redirect(
+          res.status(400).send(
+            data: {
+              error: "invalid_token"
+            }
             "/#" +
               querystring.stringify({
                 error: "invalid_token"
