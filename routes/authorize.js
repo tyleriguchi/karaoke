@@ -45,7 +45,9 @@ router.get("/spotify/callback", function(req, res, next) {
       `${process.env.spotify_client_id}:${process.env.spotify_client_secret}`,
       "base64"
     );
-    const authOptions = {
+    const requestOptions = {
+      method: "post",
+      url: "https://accounts.spotify.com/api/token",
       data: querystring.stringify({
         code: code,
         redirect_uri: spotify_redirect_uri,
@@ -60,7 +62,7 @@ router.get("/spotify/callback", function(req, res, next) {
     console.log("before post");
 
     axios
-      .post("https://accounts.spotify.com/api/token", authOptions)
+      .request(requestOptions)
       .then(response => {
         console.log("response", response.status);
         if (response.status === 200) {
