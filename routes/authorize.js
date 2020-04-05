@@ -6,7 +6,6 @@ const querystring = require("querystring");
 
 const spotify_redirect_uri =
   "https://karoke.herokuapp.com/authorize/spotify/callback";
-
 router.get("/spotify", function(req, res, next) {
   const scope = "user-read-private user-read-email";
   const state = uuidV4();
@@ -17,7 +16,7 @@ router.get("/spotify", function(req, res, next) {
     response_type: "code",
     client_id: process.env.spotify_client_id,
     scope: scope,
-    redirect_uri: "https://karoke.herokuapp.com/authorize/spotify/callback",
+    redirect_uri: spotify_redirect_uri,
     state: state
   });
 
@@ -42,10 +41,10 @@ router.get("/spotify/callback", function(req, res, next) {
   } else {
     res.clearCookie("spotify_uuid");
     var authOptions = {
-      url: spotify_redirect_uri,
+      url: "https://accounts.spotify.com/api/token",
       form: {
         code: code,
-        redirect_uri: redirect_uri,
+        redirect_uri: spotify_redirect_uri,
         grant_type: "authorization_code"
       },
       headers: {
