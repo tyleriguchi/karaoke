@@ -21,7 +21,11 @@ router.get("/spotify", function(req, res, next) {
     state: state
   });
 
-  res.redirect(`https://accounts.spotify.com/authorize?${params}`);
+  res.send({
+    data: {
+      redirect_uri: `https://accounts.spotify.com/authorize?${params}`
+    }
+  });
 });
 
 router.get(
