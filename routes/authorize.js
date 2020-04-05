@@ -41,57 +41,52 @@ router.get("/spotify/callback", function(req, res, next) {
     );
   } else {
     res.clearCookie("spotify_uuid");
-    var authOptions = {
-      url: "https://accounts.spotify.com/api/token",
-      form: {
+    const authHeaderData = Buffer.from(
+      `${process.env.spotify_client_id}:${process.env.spotify_client_secret}`,
+      "base64"
+    );
+    const authOptions = {
+      data: {
         code: code,
         redirect_uri: spotify_redirect_uri,
         grant_type: "authorization_code"
       },
       headers: {
-        Authorization:
-          "Basic " +
-          Buffer.from(
-            `${process.env.spotify_client_id}:${process.env.spotify_client_secret}`,
-            "base64"
-          )
-      },
-      json: true
+        Authorization: `Basic ${authHeaderData}`
+      }
     };
 
-    axios.post(authOptions).then(res => {
-      if (res.status === 200) {
-        var access_token = body.access_token,
-          refresh_token = body.refresh_token;
+    axios
+      .post("https://accounts.spotify.com/api/token", authOptions)
+      .then(response => {
+        if (response.status === 200) {
+          const options = {
+            url: "https://api.spotify.com/v1/me",
+            headers: { Authorization: `Bearer ${response.data.access_token}` }
+          };
 
-        var options = {
-          url: "https://api.spotify.com/v1/me",
-          headers: { Authorization: "Bearer " + access_token },
-          json: true
-        };
+          // use the access token to access the Spotify Web API
+          axios.get("https://api.spotify.com/v1/me", options).then(response => {
+            console.log(response.data);
+          });
 
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
-
-        // we can also pass the token to the browser to make requests from there
-        res.redirect(
-          "/#" +
-            querystring.stringify({
-              access_token: access_token,
-              refresh_token: refresh_token
-            })
-        );
-      } else {
-        res.redirect(
-          "/#" +
-            querystring.stringify({
-              error: "invalid_token"
-            })
-        );
-      }
-    });
+          // we can also pass the token to the browser to make requests from there
+          res.redirect(
+            "/#" +
+              querystring.stringify({
+                access_token: response.data.access_token,
+                refresh_token: response.data.refresh_token
+              })
+          );
+        } else {
+          res.redirect(
+            "/#" +
+              querystring.stringify({
+                error: "invalid_token"
+              })
+          );
+        }
+      });
   }
 });
 module.exports = router;
