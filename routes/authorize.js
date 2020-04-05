@@ -95,9 +95,13 @@ router.get("/spotify/callback", function(req, res, next) {
         }
       })
       .catch(err => {
-        console.log(err.response.data);
-        console.log(err.response.status);
-        console.log(err.response.headers);
+        if (err && err.response) {
+          console.log(err.response.data);
+          console.log(err.response.status);
+          console.log(err.response.headers);
+        } else {
+          console.log("err: ", err);
+        }
       });
   }
 });
