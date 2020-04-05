@@ -11,6 +11,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 
   corsOptions["host"] = "*";
+} else {
+  corsOptions["host"] = "https://karoke.netlify.com";
 }
 var indexRouter = require("./routes/index");
 var authorizationRouter = require("./routes/authorize");
