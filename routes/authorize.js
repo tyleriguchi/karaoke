@@ -46,13 +46,14 @@ router.get("/spotify/callback", function(req, res, next) {
       "base64"
     );
     const authOptions = {
-      data: {
+      data: querystring.stringify{
         code: code,
         redirect_uri: spotify_redirect_uri,
         grant_type: "authorization_code"
       },
       headers: {
-        Authorization: `Basic ${authHeaderData}`
+        Authorization: `Basic ${authHeaderData}`,
+        "content-type": "application/x-www-form-urlencoded "
       }
     };
 
