@@ -8,7 +8,7 @@ const axios = require("axios"); // "Request" library
 const spotify_redirect_uri = `${process.env.host}/authorize/spotify/callback`;
 
 router.get("/spotify", function(req, res, next) {
-  const scope = "user-read-private user-read-email";
+  const scope = "user-read-currently-playing";
   const state = uuidV4();
 
   res.cookie("spotify_uuid", state);
