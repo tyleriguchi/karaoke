@@ -56,9 +56,12 @@ router.get("/spotify/callback", function(req, res, next) {
       }
     };
 
+    console.log("before post");
+
     axios
       .post("https://accounts.spotify.com/api/token", authOptions)
       .then(response => {
+        console.log("response", response.status);
         if (response.status === 200) {
           const options = {
             url: "https://api.spotify.com/v1/me",
@@ -66,6 +69,7 @@ router.get("/spotify/callback", function(req, res, next) {
           };
 
           // use the access token to access the Spotify Web API
+          console.log("before user me");
           axios.get("https://api.spotify.com/v1/me", options).then(response => {
             console.log(response.data);
           });
@@ -86,6 +90,9 @@ router.get("/spotify/callback", function(req, res, next) {
               })
           );
         }
+      })
+      .catch(err => {
+        console.log("error occured", err);
       });
   }
 });
