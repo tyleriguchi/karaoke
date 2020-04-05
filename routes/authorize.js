@@ -3,7 +3,7 @@ const uuidV4 = uuid.v4;
 const express = require("express");
 const router = express.Router();
 const querystring = require("querystring");
-const request = require("request"); // "Request" library
+const axios = require("axios"); // "Request" library
 
 const spotify_redirect_uri = `${process.env.host}/authorize/spotify/callback`;
 
@@ -59,7 +59,7 @@ router.get("/spotify/callback", function(req, res, next) {
       json: true
     };
 
-    request.post(authOptions, function(error, response, body) {
+    axios.request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
         var access_token = body.access_token,
           refresh_token = body.refresh_token;
