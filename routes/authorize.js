@@ -77,18 +77,14 @@ router.get(
           console.log("response", response.status);
           if (response.status === 200) {
             // we can also pass the token to the browser to make requests from there
-            res.status(200).send({
-              data: {
-                access_token: response.data.access_token,
-                refresh_token: response.data.refresh_token
-              }
+            const params = querystring.stringify({
+              access_token: response.data.access_token,
+              refresh_token: response.data.refresh_token
             });
+
+            res.redirect(`${process.env.client_host}?${params}`);
           } else {
-            res.status(400).send({
-              data: {
-                error: "invalid_token"
-              }
-            });
+            res.redirect(`${process.env.client_host}?error="invalid_token"`);
           }
         })
         .catch(err => {
