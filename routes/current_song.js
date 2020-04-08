@@ -10,13 +10,18 @@ router.get("/", function(req, res, next) {
   };
 
   // use the access token to access the Spotify Web API
-  console.log("before user me");
-  axios.request(options).then(response => {
-    console.log(response.data);
-    res.send({
-      data: response.data
+  console.log("before user me", req.headers);
+  axios
+    .request(options)
+    .then(response => {
+      console.log(response.data);
+      res.send({
+        data: response.data
+      });
+    })
+    .catch(err => {
+      console.log("err", err);
     });
-  });
 });
 
 module.exports = router;
