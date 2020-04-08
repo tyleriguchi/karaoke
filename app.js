@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 } else {
   corsOptions["origin"] = process.env.client_host;
+  corsOptions["credentials"] = true;
 }
 var indexRouter = require("./routes/index");
 var authorizationRouter = require("./routes/authorize");
