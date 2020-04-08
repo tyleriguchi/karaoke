@@ -21,6 +21,10 @@ router.get("/spotify", function(req, res, next) {
     state: state
   });
 
+  console.log(
+    "redirect link",
+    `https://accounts.spotify.com/authorize?${params}`
+  );
   res.json({
     data: {
       redirect_uri: `https://accounts.spotify.com/authorize?${params}`
