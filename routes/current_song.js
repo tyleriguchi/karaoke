@@ -6,7 +6,7 @@ const axios = require("axios"); // "Request" library
 router.get("/", function(req, res, next) {
   const options = {
     url: "https://api.spotify.com/v1/me/player/currently-playing",
-    headers: { Authorization: `Bearer ${req.headers.token}` }
+    headers: { Authorization: `${req.headers.authorization}` }
   };
 
   // use the access token to access the Spotify Web API
