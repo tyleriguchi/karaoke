@@ -9,8 +9,6 @@ const corsOptions = {};
 if (process.env.NODE_ENV !== "production") {
   // load environment variables
   require("dotenv").config();
-
-  corsOptions["origin"] = "*";
 } else {
   corsOptions["origin"] = process.env.client_host;
 }
