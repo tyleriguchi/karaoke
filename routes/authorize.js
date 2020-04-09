@@ -10,9 +10,9 @@ const spotify_redirect_uri = `${process.env.host}/authorize/spotify/callback`;
 router.get("/spotify", function(req, res, next) {
   const scope = "user-read-currently-playing";
   const state = uuidV4();
-
   res.cookie("spotify_uuid", state);
-
+  console.log("state", state);
+  console.log("cookie", res.cookies);
   const params = querystring.stringify({
     response_type: "code",
     client_id: process.env.spotify_client_id,
