@@ -11,7 +11,7 @@ router.get("/spotify", function(req, res, next) {
   const scope = "user-read-currently-playing";
   const state = uuidV4();
   res.cookie("spotify_uuid", state);
-  res.set("X-AUTH-SPOTIFY", state);
+  res.set("X-Auth-Spotiy", state);
   console.log("state", state);
   console.log("cookie", res.cookies);
   const params = querystring.stringify({
