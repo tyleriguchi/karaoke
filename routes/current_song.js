@@ -42,12 +42,11 @@ router.get("/", function(req, res, next) {
               .then(lyricGeniusResponse => {
                 const $ = cheerio.load(lyricGeniusResponse.data);
 
-                const text = $(".lyrics").text();
-                console.log("extracted lyrics", text);
+                const lyrics = $(".lyrics").text();
 
                 res.send({
                   data: {
-                    text: text,
+                    lyrics,
                     url: mostLikelyMatch.url,
                     song_title: mostLikelyMatch.title_with_featured,
                     primary_artist: mostLikelyMatch.primary_artist.name
