@@ -27,7 +27,10 @@ router.get("/spotify", function(req, res, next) {
     `https://accounts.spotify.com/authorize?${params}`
   );
 
-  res.set("Access-Control-Expose-headers", "X-Auth-Spotify");
+  res.header(
+    "Access-Control-Expose-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, X-Auth-Spotify"
+  );
 
   res.status(200).json({
     data: {
