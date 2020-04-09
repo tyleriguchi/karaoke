@@ -42,7 +42,6 @@ router.get("/", function(req, res, next) {
     .catch(err => {
       console.log("err", err);
     });
-  lyric_genius_client_token;
 });
 
 module.exports = router;
