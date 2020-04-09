@@ -19,6 +19,8 @@ router.get("/", function(req, res, next) {
         q: `${trackName} ${primaryArtist}`
       });
 
+      console.log("params", params);
+
       const options = {
         url: `https://api.genius.com/search?${params}`,
         headers: {
@@ -29,23 +31,27 @@ router.get("/", function(req, res, next) {
       axios
         .request(options)
         .then(response => {
-          const mostLikelyMatch = response.data.response.hits[0].result;
+          const possibleMatch = response.data.response.hits;
 
-          axios
-            .request({ url: mostLikelyMatch.url })
-            .then(lyricGeniusResponse => {
-              const $ = cheerio.load(lyricGeniusResponse.data);
+          if (possibleMatch.length) {
+            const mostLikelyMatch = possibleMatch[0].result;
 
-              const text = $(".lyrics").text();
-              console.log("extracted lyrics", text);
+            axios
+              .request({ url: mostLikelyMatch.url })
+              .then(lyricGeniusResponse => {
+                const $ = cheerio.load(lyricGeniusResponse.data);
 
-              res.send({
-                data: {
-                  text: text,
-                  url: mostLikelyMatch.url
-                }
+                const text = $(".lyrics").text();
+                console.log("extracted lyrics", text);
+
+                res.send({
+                  data: {
+                    text: text,
+                    url: mostLikelyMatch.url
+                  }
+                });
               });
-            });
+          }
         })
         .catch(err => {
           console.log("err", err);
