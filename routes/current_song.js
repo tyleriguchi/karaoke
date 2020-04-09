@@ -45,7 +45,10 @@ router.get("/", function(req, res, next) {
           console.log("extracted lyrics", text);
 
           res.send({
-            data: text
+            data: {
+              text: text,
+              url: most_likely_match.url
+            }
           });
         });
     })
