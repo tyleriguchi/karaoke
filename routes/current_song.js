@@ -37,7 +37,7 @@ router.get("/", function(req, res, next) {
       const most_likely_match = response.data.response.hits[0].result;
 
       axios
-        .request({ url: most_likely_match.path })
+        .request({ url: most_likely_match.url })
         .then(lyric_genius_response => {
           const $ = cheerio.load(lyric_genius_response.data);
 
