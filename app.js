@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 } else {
   corsOptions["origin"] = process.env.client_host;
   corsOptions["credentials"] = true;
-  corsOPtions["exposedHeaders"] =
+  corsOptions["exposedHeaders"] =
     "Origin, X-Requested-With, Content-Type, Accept, X-Auth-Spotify";
 }
 var indexRouter = require("./routes/index");
