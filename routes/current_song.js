@@ -48,7 +48,9 @@ router.get("/", function(req, res, next) {
                 res.send({
                   data: {
                     text: text,
-                    url: mostLikelyMatch.url
+                    url: mostLikelyMatch.url,
+                    song_title: mostLikelyMatch.title_with_featured,
+                    primary_artist: mostLikelyMatch.primary_artist.name
                   }
                 });
               });
