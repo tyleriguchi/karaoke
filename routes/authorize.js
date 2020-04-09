@@ -26,6 +26,9 @@ router.get("/spotify", function(req, res, next) {
     "redirect link",
     `https://accounts.spotify.com/authorize?${params}`
   );
+
+  res.set("Access-Control-Expose-headers", "X-Auth-Spotify");
+
   res.status(200).json({
     data: {
       redirect_uri: `https://accounts.spotify.com/authorize?${params}`
