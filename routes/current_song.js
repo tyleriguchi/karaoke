@@ -11,12 +11,13 @@ router.get("/", function(req, res, next) {
       headers: { Authorization: `${req.headers.authorization}` }
     })
     .then(spotifyResponse => {
-      console.log(spotifyResponse.data);
-
       const trackName = spotifyResponse.data.item.name;
-      const primaryArtist = spotifyResponse.data.item.artists[0].name;
+      const artistNames = spotifyResponse.data.item.artists
+        .map(artist => artist.name)
+        .join(" ");
+
       const params = querystring.stringify({
-        q: `${trackName} ${primaryArtist}`
+        q: `${trackName} ${artistNames}`
       });
 
       console.log("params", params);
