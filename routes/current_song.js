@@ -34,7 +34,7 @@ router.get("/", function(req, res, next) {
     .request(options)
     .then(response => {
       console.log(response.data.response.hits);
-      const most_likely_match = response.data.response.hits[0];
+      const most_likely_match = response.data.response.hits[0].result;
 
       axios
         .request({ url: most_likely_match.path })
