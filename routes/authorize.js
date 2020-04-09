@@ -42,7 +42,8 @@ router.get(
     var code = req.query.code || null;
     var state = req.query.state || null;
     var storedState = req.cookies ? req.cookies["spotify_uuid"] : null;
-
+    console.log("state", state);
+    console.log("stored state", storedState);
     if (state === null || state !== storedState) {
       res.redirect(
         "/#" +
