@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const querystring = require("querystring");
 const axios = require("axios"); // "Request" library
+const cheerio = require("cheerio");
 
 router.get("/", function(req, res, next) {
   // const options = {
@@ -29,15 +30,24 @@ router.get("/", function(req, res, next) {
     }
   };
 
-  // use the access token to access the Spotify Web API
-  console.log("before user me", req.headers);
   axios
     .request(options)
     .then(response => {
-      console.log(response.data);
-      res.send({
-        data: response.data
-      });
+      console.log(response.data.response.hits);
+      const most_likely_match = response.data.response.hits[0];
+
+      axios
+        .request({ url: most_likely_match.path })
+        .then(lyric_genius_response => {
+          const $ = cheerio.load(lyric_genius_response.data);
+
+          const text = $(".lyrics").text();
+          console.log("extracted lyrics", text);
+
+          res.send({
+            data: text
+          });
+        });
     })
     .catch(err => {
       console.log("err", err);
