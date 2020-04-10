@@ -5,7 +5,7 @@ const router = express.Router();
 const querystring = require("querystring");
 const axios = require("axios"); // "Request" library
 const cors = require("cors");
-const spotify_redirect_uri = `${process.env.host}/authorize/spotify/callback`;
+const spotify_redirect_uri = `${process.env.client_host}/auth/spotify`;
 
 router.get("/spotify", function(req, res, next) {
   const scope = "user-read-currently-playing";
